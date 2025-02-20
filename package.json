@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "dev": "npm run build && node --require dotenv/config ./dist/index.js"
+    "build:dev": "npm run build && node --require dotenv/config ./dist/index.js",
+    "dev": "ts-node --require dotenv/config ./index.ts"
   },
   "author": "",
   "license": "ISC",
