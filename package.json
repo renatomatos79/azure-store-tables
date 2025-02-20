@@ -2,15 +2,20 @@
   "name": "azure-table",
   "version": "1.0.0",
   "main": "index.js",
-  "type": "module",
   "scripts": {
-    "dev": "node --require dotenv/config index.js"
+    "build": "tsc",
+    "dev": "npm run build && node --require dotenv/config ./dist/index.js"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
     "@azure/data-tables": "^13.3.0",
-    "dotenv": "^16.4.7"
+    "dotenv": "^16.4.7",
+    "typescript": "^5.7.3"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.4",
+    "tsc": "^2.0.4"
   }
 }
