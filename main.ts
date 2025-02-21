@@ -18,6 +18,7 @@ import {
   createAndFillUpTable,
   shouldFindEverySingleRecord,
 } from "./tests/createAndFillUpTable"
+import { createAndDropTable } from "./tests/createAndDropTable"
 
 // Your Azure Storage Account details
 const accountName = process.env.AZURE_ACCOUNT_NAME ?? ""
@@ -52,6 +53,14 @@ async function main() {
     accountName,
     accountKey,
     insertTable,
+    MAX_RETRIES,
+    RETRY_DELAY_IN_MS,
+  )
+
+  // 2. Creating and Dropping table
+  await createAndDropTable(
+    accountName,
+    accountKey,
     MAX_RETRIES,
     RETRY_DELAY_IN_MS,
   )

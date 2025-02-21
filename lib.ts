@@ -51,6 +51,36 @@ export const dropTable = (
   )
 }
 
+export const getTables = (
+  serviceClient: TableServiceClient,
+  maxRetries: number,
+  retryDelayInMs: number,
+) => {
+  return executeWithRetry(
+    async () => {
+      const tables: string[] = []
+      const tableItems = serviceClient.listTables()
+      for await (const table of serviceClient.listTables()) {
+        tables.push(table.name)
+      }
+      return tables
+    },
+    maxRetries,
+    retryDelayInMs,
+  )
+}
+
+export const tableExists = async (
+  serviceClient: TableServiceClient,
+  tableName: string,
+  maxRetries: number,
+  retryDelayInMs: number,
+) => {
+  return (await getTables(serviceClient, maxRetries, retryDelayInMs)).includes(
+    tableName,
+  )
+}
+
 export const executeWithRetry = async (
   func: () => Promise<any>,
   maxRetries: number,
