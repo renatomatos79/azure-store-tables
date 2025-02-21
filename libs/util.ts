@@ -81,3 +81,9 @@ export const isObjectSubset = <T extends Record<string, any>>(
 ): boolean => {
   return Object.entries(obj1).every(([key, value]) => obj2[key] === value)
 }
+
+export const addLog = (group: string, msg: string) => {
+  const now = new Date()
+  const formattedTime = now.toTimeString().slice(0, 8) // Get HH:mm:ss format
+  console.log(`${group}::${formattedTime} - ${msg}`)
+}
