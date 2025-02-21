@@ -1,5 +1,5 @@
 {
-  "include":  ["*.ts"],
+  "include":  ["main.ts", "./libs/*.ts"],
   "compilerOptions": {
     "outDir": "./dist/",
     "noImplicitAny": true,

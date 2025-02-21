@@ -2,11 +2,12 @@
 import {
   createEntity,
   createTable,
+  deleteEntity,
   getEntity,
   getTableClient,
   getTableServiceClient,
   isObjectSubset,
-} from "../lib"
+} from "../libs"
 
 import { IUserEntity } from "../interfaces/entity.interface"
 import { USERS } from "../constants/mock-data.constants"
@@ -58,7 +59,7 @@ export const shouldFindEverySingleRecord = async (
         maxRetries,
         retryDelayInMillis,
       )
-        .then((result) => {
+        .then((result: IUserEntity) => {
           const found = isObjectSubset(user, result)
           if (!found) {
             const json1 = JSON.stringify(user)
@@ -70,6 +71,31 @@ export const shouldFindEverySingleRecord = async (
         .catch((error: Error) => {
           console.error("shouldFindEverySingleRecord::ERROR => ", error)
         })
+    }),
+  )
+}
+
+export const deleteEntities = async (
+  accountName: string,
+  accountKey: string,
+  tableName: string,
+  maxRetries: number,
+  retryDelayInMillis: number,
+): Promise<void> => {
+  console.log(`Deleting entities from ${tableName}`)
+
+  const tableClient = getTableClient(accountName, accountKey, tableName)
+
+  await Promise.all(
+    USERS.map(async (user) => {
+      await deleteEntity(
+        tableClient,
+        user,
+        maxRetries,
+        retryDelayInMillis,
+      ).catch((error: Error) => {
+        console.error("deleteEntities::ERROR => ", error)
+      })
     }),
   )
 }

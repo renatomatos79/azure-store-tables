@@ -1,17 +1,12 @@
 // Entity to be inserted
 import {
-  createEntity,
   createTable,
   dropTable,
-  getEntity,
-  getTableClient,
+  getTables,
   getTableServiceClient,
-  isObjectSubset,
   tableExists,
-} from "../lib"
+} from "../libs"
 
-import { IUserEntity } from "../interfaces/entity.interface"
-import { USERS } from "../constants/mock-data.constants"
 import { randomUUID } from "crypto"
 
 export const createAndDropTable = async (
@@ -52,4 +47,8 @@ export const createAndDropTable = async (
   )
 
   console.info(`Table ${tableName} exists: ${isDropped}`)
+
+  console.info("TABLES:")
+  const tables = await getTables(tableSvcClient, maxRetries, retryDelayInMillis)
+  tables.forEach((table: string) => console.log(`  ${table}`))
 }

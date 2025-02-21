@@ -1,21 +1,7 @@
-import {
-  TableClient,
-  AzureNamedKeyCredential,
-  TableServiceClient,
-} from "@azure/data-tables"
-import {
-  createEntity,
-  createTable,
-  deleteEntity,
-  dropTable,
-  getEntity,
-  isResourceNotFoundError,
-  sleep,
-  updateEntity,
-} from "./lib"
 import { randomUUID } from "crypto"
 import {
   createAndFillUpTable,
+  deleteEntities,
   shouldFindEverySingleRecord,
 } from "./tests/createAndFillUpTable"
 import { createAndDropTable } from "./tests/createAndDropTable"
@@ -50,6 +36,13 @@ async function main() {
     RETRY_DELAY_IN_MS,
   )
   await shouldFindEverySingleRecord(
+    accountName,
+    accountKey,
+    insertTable,
+    MAX_RETRIES,
+    RETRY_DELAY_IN_MS,
+  )
+  await deleteEntities(
     accountName,
     accountKey,
     insertTable,

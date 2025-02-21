@@ -1,7 +1,7 @@
 {
   "name": "azure-table",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "main.ts",
   "scripts": {
     "build": "tsc",
     "build:dev": "npm run build && node --require dotenv/config ./dist/main.js",
